@@ -1,0 +1,13 @@
+[
+  {
+    "id": "1",
+    "image": {
+      "original_iamge": "1\\1_original_img.jpg",
+      "som_image": "1\\1_som_img.jpg",
+      "som_text": "1\\1_tags_order.txt",
+      "som_tags": "1\\1_tags_order_content.txt",
+      "comprehension": "1\\1_comprehension.txt"
+    },
+    "task": "task: 点击红底白字“Buy”按钮（标签22）。"
+  }
+]
