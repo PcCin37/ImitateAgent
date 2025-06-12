@@ -1,3 +1,8 @@
+# 版权所有 (C) 2025 bytedance technical flow 模块
+# 本文件仅用于个人研究目的，禁止商业用途。
+# Author: Pengchen Chen
+# --------------------------------------
+
 import os
 import time
 from datetime import datetime

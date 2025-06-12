@@ -1,3 +1,8 @@
+# 版权所有 (C) 2025 bytedance technical flow 模块
+# 本文件仅用于个人研究目的，禁止商业用途。
+# Author: Pengchen Chen
+# --------------------------------------
+
 import os
 import json
 import base64
@@ -37,7 +42,7 @@ def evaluate_task_success(before_img, after_img, response_json):
 下面是本次子任务的描述和操作参数：
 {json.dumps(task_info, ensure_ascii=False, indent=2)}
 
-请对比“操作前截图”和“操作后截图”，判断本次子任务是否执行成功，并简要说明理由。
+请对比"操作前截图"和"操作后截图"，判断本次子任务是否执行成功，并简要说明理由。
 请严格按照如下JSON格式输出：
 {{
   "success": true/false,
