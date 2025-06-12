@@ -42,7 +42,7 @@ pip install -r requirements.txt
 ## 运行前准备
 
 1. **ADB 环境**：需已安装并配置好 adb，且安卓设备已连接并允许调试。
-2. **模型权重**：需下载 OmniParser 相关权重至 `weights/` 目录（详见主项目 README）。
+2. **模型权重**：需下载 OmniParser 相关权重至 `weights/` 目录（详见OmniParser 项目 README）。
 3. **API Key 配置**：如需调用大模型 API（如 OpenAI），请在相关文件中配置好 API KEY。
 
 ## 快速开始
