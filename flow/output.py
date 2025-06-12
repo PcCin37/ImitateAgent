@@ -45,8 +45,32 @@ class ADBCommandGenerator:
         x, y = self.convert_coordinates(grounding)
         return f"adb shell input tap {x} {y}"
 
-    def generate_swipe_command(self, interaction_type: str) -> str:
-        """生成滑动命令"""
+    def generate_swipe_left_command(self, grounding: List[float] = None) -> str:
+        """生成左滑命令"""
+        if grounding and len(grounding) == 4:
+            x1 = int(grounding[0] * self.screen_width) + 50
+            x2 = int(grounding[2] * self.screen_width) - 100
+            y1 = grounding[1]
+            y2 = grounding[3]
+            y_center = int(((y1 + y2) / 2) * self.screen_height)
+            # 左滑：从右往左
+            return f"adb shell input swipe {x2} {y_center} {x1} {y_center} 300"
+        return ""
+
+    def generate_swipe_right_command(self, grounding: List[float] = None) -> str:
+        """生成右滑命令"""
+        if grounding and len(grounding) == 4:
+            x1 = int(grounding[0] * self.screen_width) + 100
+            x2 = int(grounding[2] * self.screen_width) - 50
+            y1 = grounding[1]
+            y2 = grounding[3]
+            y_center = int(((y1 + y2) / 2) * self.screen_height)
+            # 右滑：从左往右
+            return f"adb shell input swipe {x1} {y_center} {x2} {y_center} 300"
+        return ""
+
+    def generate_swipe_command(self, interaction_type: str, grounding: List[float] = None) -> str:
+        """生成滑动命令，支持swipe_left、swipe_right等自定义区域滑动"""
         if interaction_type == "swipe_next_video":
             # 从屏幕下方向上滑动（模拟查看下一个视频）
             start_x = self.screen_width // 2
@@ -119,6 +143,32 @@ class ADBCommandGenerator:
         elif interaction_type == "swipe_up":
             adb_command = self.generate_swipe_command(interaction_type)
             command_description = "滑动查看更多内容"
+
+        elif interaction_type == "swipe_left":
+            grounding = interaction_param.get("grounding") or response_data.get("grounding")
+            if grounding and len(grounding) == 4:
+                adb_command = self.generate_swipe_left_command(grounding)
+                x1 = int(grounding[0] * self.screen_width) + 50
+                x2 = int(grounding[2] * self.screen_width) - 100
+                y1 = grounding[1]
+                y2 = grounding[3]
+                y_center = int(((y1 + y2) / 2) * self.screen_height)
+                command_description = f"左滑 区域: 起点({x2},{y_center}) 终点({x1},{y_center})"
+            else:
+                command_description = "左滑，但未提供有效grounding参数"
+
+        elif interaction_type == "swipe_right":
+            grounding = interaction_param.get("grounding") or response_data.get("grounding")
+            if grounding and len(grounding) == 4:
+                adb_command = self.generate_swipe_right_command(grounding)
+                x1 = int(grounding[0] * self.screen_width) + 100
+                x2 = int(grounding[2] * self.screen_width) - 50
+                y1 = grounding[1]
+                y2 = grounding[3]
+                y_center = int(((y1 + y2) / 2) * self.screen_height)
+                command_description = f"右滑 区域: 起点({x1},{y_center}) 终点({x2},{y_center})"
+            else:
+                command_description = "右滑，但未提供有效grounding参数"
 
         elif interaction_type == "long_press_menu":
             grounding = interaction_param.get("grounding") or response_data.get("grounding")

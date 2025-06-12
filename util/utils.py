@@ -285,16 +285,12 @@ def remove_overlap_new(boxes, iou_threshold, ocr_bbox=None):
                     if not box_added:
                         box3 = box3_elem['bbox']
                         if is_inside(box3, box1): # ocr inside icon
-                            # box_added = True
-                            # delete the box3_elem from ocr_bbox
                             try:
-                                # gather all ocr labels
                                 ocr_labels += box3_elem['content'] + ' '
                                 filtered_boxes.remove(box3_elem)
                             except:
                                 continue
-                            # break
-                        elif is_inside(box1, box3): # icon inside ocr, don't added this icon box, no need to check other ocr bbox bc no overlap between ocr bbox, icon can only be in one ocr box
+                        elif is_inside(box1, box3): # icon inside ocr
                             box_added = True
                             break
                         else:
@@ -305,7 +301,8 @@ def remove_overlap_new(boxes, iou_threshold, ocr_bbox=None):
                     else:
                         filtered_boxes.append({'type': 'icon', 'bbox': box1_elem['bbox'], 'interactivity': True, 'content': None, 'source':'box_yolo_content_yolo'})
             else:
-                filtered_boxes.append(box1)
+                # 保证返回的都是字典结构
+                filtered_boxes.append({'type': 'icon', 'bbox': box1_elem['bbox'], 'interactivity': True, 'content': None, 'source':'box_yolo_content_yolo'})
     return filtered_boxes # torch.tensor(filtered_boxes)
 
 
@@ -430,6 +427,11 @@ def get_som_labeled_img(image_source: Union[str, Image.Image], model=None, BOX_T
     else:
         print('no ocr bbox!!!')
         ocr_bbox = None
+
+    if ocr_bbox is None:
+        ocr_bbox = []
+    if ocr_text is None:
+        ocr_text = []
 
     ocr_bbox_elem = [{'type': 'text', 'bbox':box, 'interactivity':False, 'content':txt, 'source': 'box_ocr_content_ocr'} for box, txt in zip(ocr_bbox, ocr_text) if int_box_area(box, w, h) > 0] 
     xyxy_elem = [{'type': 'icon', 'bbox':box, 'interactivity':True, 'content':None} for box in xyxy.tolist() if int_box_area(box, w, h) > 0]

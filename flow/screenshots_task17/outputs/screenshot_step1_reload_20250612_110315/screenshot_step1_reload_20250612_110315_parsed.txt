@@ -1,0 +1,9 @@
+icon 0: {'type': 'icon', 'bbox': [0.2595234215259552, 0.5728257894515991, 0.7352845668792725, 0.6305206418037415], 'interactivity': True, 'content': 'a left arrow or left arrow.', 'source': 'box_yolo_content_yolo'}
+icon 1: {'type': 'icon', 'bbox': [0.8619268536567688, 0.014395744539797306, 0.9326549768447876, 0.038300346583127975], 'interactivity': True, 'content': 'A number or date.', 'source': 'box_yolo_content_yolo'}
+icon 2: {'type': 'icon', 'bbox': [0.7568101286888123, 0.014962518587708473, 0.8091001510620117, 0.03897120803594589], 'interactivity': True, 'content': 'a tool or tool for removing a file.', 'source': 'box_yolo_content_yolo'}
+icon 3: {'type': 'icon', 'bbox': [0.8121933937072754, 0.015408335253596306, 0.8586711287498474, 0.03758670389652252], 'interactivity': True, 'content': 'a close or delete function.', 'source': 'box_yolo_content_yolo'}
+icon 4: {'type': 'icon', 'bbox': [0.16515491902828217, 0.016522567719221115, 0.21033790707588196, 0.035906560719013214], 'interactivity': True, 'content': 'a notification or alert.', 'source': 'box_yolo_content_yolo'}
+icon 5: {'type': 'icon', 'bbox': [0.04868108406662941, 0.05988502874970436, 0.11661797761917114, 0.0917186290025711], 'interactivity': True, 'content': 'a push pin or push pin.', 'source': 'box_yolo_content_yolo'}
+icon 6: {'type': 'icon', 'bbox': [0.36540699005126953, 0.016753362491726875, 0.41472128033638, 0.03609676659107208], 'interactivity': True, 'content': 'A bookmark or pinning function.', 'source': 'box_yolo_content_yolo'}
+icon 7: {'type': 'icon', 'bbox': [0.21576891839504242, 0.01646414026618004, 0.25819122791290283, 0.035694148391485214], 'interactivity': True, 'content': 'a messaging or messaging application.', 'source': 'box_yolo_content_yolo'}
+icon 8: {'type': 'icon', 'bbox': [0.2674981355667114, 0.01653769053518772, 0.3614802658557892, 0.03614076226949692], 'interactivity': True, 'content': 'A notification or message.', 'source': 'box_yolo_content_yolo'}

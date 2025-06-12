@@ -5,6 +5,7 @@ from PIL import Image
 import shutil
 import sys
 import json
+import time
 
 # 导入 som.py 中的相关方法
 from som import process_image, sort_tags, mark_on_image  # 确保 som.py 在同一目录或者设置了正确的路径
@@ -17,6 +18,9 @@ from history import get_history_knowledge, save_history_entry, get_comprehension
 from interaction_processor import run_interaction_processing
 from output import run_adb_command_generator
 from compare import evaluate_task_success, append_entry_to_jsonl
+
+# 导入check_unloaded_content的函数
+from check_unloaded_content import check_and_handle_unloaded_content
 
 
 def get_connected_device() -> str:
@@ -252,6 +256,16 @@ def main():
                 "reason": result.get("reason")
             }
             append_entry_to_jsonl("history.jsonl", entry)
+            # === 新增：判断未加载内容并处理 ===
+            # next_screenshot 可能会被替换为重新截图
+            next_screenshot = check_and_handle_unloaded_content(
+                current_img_path=screenshot_path,
+                after_img_path=next_screenshot,
+                response_json_path=response_json,
+                adb_device_id=adb_device_id,
+                img_folder=img_folder,
+                step_count=step_count
+            )
             current_screenshot = next_screenshot
 
         

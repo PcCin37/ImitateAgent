@@ -22,6 +22,14 @@ interaction_knowledge = """
 interaction_type: tap。
 interaction_parameter: [x, y]
 参数中，x与y为点击位置在屏幕中的百分比坐标，如(0.03, 0.70)。
+左滑操作：
+在指定的区域内滑动，操作的结果通常是：页面左滑获取更多信息。
+interaction_type: swipe_left。
+interaction_parameter: [x1, y1, x2, y2]
+右滑操作：
+在指定的区域内滑动，操作的结果通常是：页面右滑获取更多信息。
+interaction_type: swipe_right。
+interaction_parameter: [x1, y1, x2, y2]
 """
 additional_interaction_knowledge = """
 应用内返回：
@@ -156,6 +164,25 @@ som分析UI元素结果：{som_tags}
         "grounding": [x, y]
     }}
 }}
+
+1.2.1. 【左滑（swipe_left）与右滑（swipe_right）操作的特殊指导】
+- 如果任务需要执行左滑（swipe_left）或右滑（swipe_right）操作，且只能在指定区域内完成，请你务必返回该区域的grounding边界（即滑动起止点的百分比坐标），而不是全屏范围。
+- 你需要根据som分析UI元素结果，判断允许滑动的区域，并输出该区域的左上角和右下角的百分比坐标，作为滑动的起止点。x1,y1为左上角，x2,y2为右下角。请尽可能的减小限制区域的范围，以避免在边界上滑动导致误操作。
+- 【重要】grounding的值必须严格从tags_order文件中获取，不允许自己预测。tags_order文件即为SOM分析后生成的UI元素顺序和坐标文件，路径为data["image"]["som_text"]。
+- 输出格式如下：
+
+'''json格式'''
+{{
+    "interaction_object": "area_interaction",
+    "interaction_type": "swipe_left",  // 或 "swipe_right"
+    "interaction_parameter": {{
+        "grounding": [x1, y1, x2, y2]  // 分别为滑动起点和终点的百分比坐标，且必须在指定区域内
+    }}
+}}
+【左右滑动操作选择说明】
+如果任务涉及滑动操作（swipe_left或swipe_right），请根据当前UI内容、元素分布和任务目标，判断本轮操作应优先执行左滑还是右滑。
+如果两者都可行，请优先推荐更符合用户意图的方向。
+
 1.3. 如果需要输入文字（interaction_type为input_text），请直接输出如下格式：
 '''json格式'''
 {{
@@ -187,6 +214,9 @@ def send_request(data: Dict, prompt: str, history_knowledge: str) -> Dict:
         # 读取 comprehension 文件内容
         with open(data["image"]["comprehension"], "r", encoding="utf-8") as comprehension_file:
             comprehension = comprehension_file.read()
+        # 读取 tags_order 文件内容
+        with open(data["image"]["som_text"], "r", encoding="utf-8") as tags_order_file:
+            tags_order_content = tags_order_file.read()
         task = data["task"]
         # 使用 format 方法替换占位符
         full_prompt = prompt.format(
@@ -209,6 +239,7 @@ def send_request(data: Dict, prompt: str, history_knowledge: str) -> Dict:
                     "role": "user",
                     "content": [
                         {"type": "text", "text": full_prompt},
+                        {"type": "text", "text": "以下是tags_order文件内容（SOM分析UI元素顺序和坐标）：\n" + tags_order_content},
                         {
                             "type": "image_url",
                             "image_url": {

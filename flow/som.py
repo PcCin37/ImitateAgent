@@ -188,8 +188,8 @@ def mark_on_image(original_image_path, saved_path, sorted_tags):
 #     script_dir = os.path.dirname(os.path.abspath(__file__))
 
 #     # 构建文件的绝对路径
-#     image_path = os.path.join(script_dir, 'testcase/img/tiktok/shop/14.jpg')  # 原始图像路径
-#     saved_path = os.path.join(script_dir, 'testcase/outputs/tiktok/shop/14/14_processed.jpg')
+#     image_path = os.path.join(script_dir, 'test\\1749635703778.jpg')  # 原始图像路径
+#     saved_path = os.path.join(script_dir, 'test\\1749635703778_processed.jpg')
 
 #     # 执行图像处理并生成解析内容文件
 #     processed_image_path, processed_text_path = process_image(image_path, box_threshold=0.05, iou_threshold=0.1, use_paddleocr=True, imgsz=640)
@@ -198,7 +198,8 @@ def mark_on_image(original_image_path, saved_path, sorted_tags):
 #     sorted_lines, sorted_tags = sort_tags(processed_text_path)
 
 #     # 将排序后的结果写入新文件
-#     output_file_path = os.path.join(script_dir, 'testcase/outputs/tiktok/shop/14', 'tags_order_sorted.txt')
+#     output_file_path = os.path.join(script_dir, 'test\\1749635703778', 'tags_order_sorted.txt')
+#     os.makedirs(os.path.dirname(output_file_path), exist_ok=True)  # 确保目录存在
 #     with open(output_file_path, 'w', encoding='utf-8') as file:
 #         for line in sorted_lines:
 #             file.write(line + '\n')

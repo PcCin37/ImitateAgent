@@ -1,0 +1,25 @@
+[
+    {
+        "id": "screenshot_step1_reload_20250612_110315",
+        "image": {
+            "original_iamge": "screenshots\\outputs\\screenshot_step1_reload_20250612_110315\\screenshot_step1_reload_20250612_110315_original_img.jpg",
+            "som_image": "screenshots\\outputs\\screenshot_step1_reload_20250612_110315\\screenshot_step1_reload_20250612_110315_som_img.jpg",
+            "som_text": "screenshots\\outputs\\screenshot_step1_reload_20250612_110315\\screenshot_step1_reload_20250612_110315_tags_order.txt",
+            "som_tags": "screenshots\\outputs\\screenshot_step1_reload_20250612_110315\\screenshot_step1_reload_20250612_110315_tags_order_content.txt",
+            "comprehension": "screenshots\\outputs\\screenshot_step1_reload_20250612_110315\\screenshot_step1_reload_20250612_110315_comprehension.txt"
+        },
+        "task": "task: 点击刷新按钮以重新加载页面。",
+        "response": {
+            "interaction_object": "component_interaction",
+            "interaction_type": "tap",
+            "interaction_parameter": {
+                "tag": "8",
+                "content": "a left arrow or left arrow."
+            },
+            "grounding": [
+                0.49740399420261383,
+                0.6016732156276703
+            ]
+        }
+    }
+]
